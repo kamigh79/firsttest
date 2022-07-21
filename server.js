@@ -17,14 +17,12 @@ for (let index = 0; index < 100; index++) {
   pages[index] = index;
 }
 server.get("/users", (req, res) => {
-  res.json(users);
-  res.end();
+  return res.json(users);
 });
 server.post("/add-user", (req, res) => {
   const user = req.body;
   users.push(user);
-  res.write("user added");
-  res.end();
+  return res.json("user added");
 });
 server.put(["/update-user", "/update-user/:id"], (req, res) => {
   const ID = req.params.id;
@@ -84,7 +82,7 @@ function auth(req, res, next) {
   if (exist) {
     next();
   } else {
-    res.status(401).json("access denied");
+    return res.status(401).json("access denied");
   }
 }
 server.listen(3000, () => {
