@@ -70,7 +70,7 @@ server.get("/page", (req, res) => {
     result[index - x] = pages[index];
   }
   let items = {
-    pages: result,
+    items: result,
     total: result.length,
   };
   return res.json(items);
