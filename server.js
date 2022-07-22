@@ -71,7 +71,7 @@ server.get("/page", (req, res) => {
   }
   let items = {
     items: result,
-    total: result.length,
+    total: pages.length,
   };
   return res.json(items);
 });
