@@ -69,7 +69,11 @@ server.get("/page", (req, res) => {
   for (let index = x; index < x + y; index++) {
     result[index - x] = pages[index];
   }
-  return res.json(result);
+  let items = {
+    items: result,
+    total: pages.length,
+  };
+  return res.json(items);
 });
 function auth(req, res, next) {
   const person = {
