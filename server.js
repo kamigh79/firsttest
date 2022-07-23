@@ -29,39 +29,38 @@ server.put(["/update-user", "/update-user/:id"], (req, res) => {
       user.lname = person.lname;
     }
   });
-  res.write("user updated");
-  res.end();
+  return res.json("user updated");
 });
 server.delete(["/delete-user", "/delete-user/:id"], (req, res) => {
   const ID = req.params.id;
-  console.log(ID);
+
   users.find((user) => {
     if (user.id == ID) {
       users.pop(user);
     }
   });
-  res.write("user deleted");
-  res.end();
+  return res.status(200).json("user deleted");
 });
+
 server.post(["/number", "/number/:id"], (req, res) => {
   const number = req.params.id;
   if (number != 0) {
-    res.json(100 / number);
-    res.end();
+    return res.json(100 / number);
   } else {
-    res.status(400).send();
-    res.end();
+    return res.status(400).send();
   }
 });
+
 server.post(["/check-user"], auth, (req, res) => {
-  res.json("user exists");
+  return res.json("user exists");
 });
+
 server.get("/page", (req, res) => {
   let page = req.body;
   const x = page.pageSize * (page.pageNumber - 1);
   const y = parseInt(page.pageSize);
   let result = [];
-  console.log(page);
+
   for (let index = x; index < x + y; index++) {
     result[index - x] = pages[index];
   }
@@ -85,6 +84,7 @@ function auth(req, res, next) {
     return res.status(401).json("access denied");
   }
 }
+
 server.listen(3000, () => {
   console.log(`\n*** Server Running on htttp://localhost:${PORT}`);
 });
