@@ -2,16 +2,12 @@ const express = require("express");
 const server = express();
 server.set("view engine", "ejs");
 const PORT = 3000;
+
+const general = require("./helpers/general");
+
 server.use(express.urlencoded({ extended: false }));
 server.use(express.json());
-let users = [
-  { id: "00", fname: "kamyar", lname: "ghazanfari" },
-  {
-    id: "01",
-    fname: "akbar",
-    lname: "akbari",
-  },
-];
+let users = general.getUsers();
 let pages = [];
 for (let index = 0; index < 100; index++) {
   pages[index] = index;
